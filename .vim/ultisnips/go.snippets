@@ -1,0 +1,102 @@
+snippet now
+now := time.Now()
+endsnippet
+
+snippet rne
+require.NoError(t, err)
+
+endsnippet
+
+snippet rnie
+require.NoError(t, ${1:m}.Insert(${2:storage.Db}))
+
+endsnippet
+
+snippet resn
+require.Equal(t, sql.ErrNoRows, err)
+
+endsnippet
+
+snippet err
+if err != nil {
+	return err
+}
+
+endsnippet
+
+snippet gei
+if err != nil {
+	log.WithError(err).Errorf("${1:internal error}")
+	return nil, grpcx.InternalErr(ctx)
+}
+
+endsnippet
+
+snippet gse
+switch err {
+case nil:
+case sql.ErrNoRows:
+default:
+	log.WithError(err).Errorf("${1:internal error}")
+	return nil, grpcx.InternalErr(ctx)
+}
+
+endsnippet
+
+snippet gsef
+switch err {
+case nil:
+case sql.ErrNoRows:
+	return nil, grpcx.Errorf(pbbase.PBStatus_NOT_FOUND, i18n.CtxFormatf(ctx, ${1:i18n.Error_CantFindUser}))
+default:
+	log.WithError(err).Errorf("${1:internal error}")
+	return nil, grpcx.InternalErr(ctx)
+}
+
+endsnippet
+
+
+
+snippet en1
+if err != nil {
+	return nil, err
+}
+
+endsnippet
+
+snippet en2
+if err != nil {
+	return nil, nil, err
+}
+
+endsnippet
+
+snippet ges
+if err != nil {
+	return errors.WithStack(err)
+}
+
+endsnippet
+
+
+snippet hei
+if err != nil {
+	logger.WithError(err).Errorf("${1:unknow error}")
+	httpx.AbortInternalError(c)
+	return
+}
+
+endsnippet
+
+snippet hse
+switch err {
+case nil:
+case sql.ErrNoRows:
+	httpx.AbortNotFound(c)
+	return
+default:
+	log.WithError(err).Errorf("${1:internal error}")
+	httpx.AbortInternalError(c)
+	return
+}
+endsnippet
